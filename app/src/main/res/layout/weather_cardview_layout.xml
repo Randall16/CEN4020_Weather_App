@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="103dp"
         android:layout_margin="4dp">
 
         <ImageView
@@ -37,7 +37,7 @@
             android:layout_alignTop="@+id/weather1_tempLo"
             android:text="ENTER WEATHER DESCRITPION"
             android:textColor="@android:color/darker_gray"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/weather1_tempHi"
@@ -47,7 +47,7 @@
             android:layout_alignParentEnd="true"
             android:text="ENTER HI TEMP"
             android:textColor="@android:color/black"
-            android:textSize="12sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/weather1_tempLo"
@@ -57,7 +57,7 @@
             android:layout_alignParentEnd="true"
             android:text="ENTER Lo TEMP"
             android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
+            android:textSize="15sp" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
