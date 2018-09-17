@@ -34,7 +34,6 @@ public class FutureForecastFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new FutureForecastAdapter(getContext(),futureList);
         mRecyclerView.setAdapter(mAdapter);
-
         return v;
     }
 
@@ -42,11 +41,10 @@ public class FutureForecastFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         futureList = new ArrayList<>();
-        futureList.add(new FutureForecastItems(R.drawable.clouds, "Sunday, Sep. 16", "cloudy"));
-        futureList.add(new FutureForecastItems(R.drawable.clouds_with_2lighting, "Sunday, Sep. 17", "Chance of thunderstorms"));
-        futureList.add(new FutureForecastItems(R.drawable.clouds, "Sunday, Sep. 18", "cloudy"));
-        futureList.add(new FutureForecastItems(R.drawable.sun, "Sunday, Sep. 19", "sunny"));
-        futureList.add(new FutureForecastItems(R.drawable.clouds_with_lighting, "Sunday, Sep. 20", "Chance of thunderstorms"));
-
+        futureList.add(new FutureForecastItems(R.drawable.clouds, "Sunday, Sep. 16", "cloudy", "95°F", "75°F"));
+        futureList.add(new FutureForecastItems(R.drawable.clouds_with_2lighting, "Sunday, Sep. 17", "Chance of thunderstorms", "95°F", "76°F"));
+        futureList.add(new FutureForecastItems(R.drawable.clouds, "Sunday, Sep. 18", "cloudy", "95°F", "78°F"));
+        futureList.add(new FutureForecastItems(R.drawable.sun, "Sunday, Sep. 19", "sunny", "94°F", "77°F"));
+        futureList.add(new FutureForecastItems(R.drawable.clouds_with_lighting, "Sunday, Sep. 20", "Chance of thunderstorms", "91°F", "70°F"));
     }
 }
