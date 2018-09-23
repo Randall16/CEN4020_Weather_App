@@ -1,3 +1,9 @@
+/**
+ * This class extends our BaseForecast class along with adding additional info like "visibility",
+ * "sunrise" and "sunset". This data is exclusive to CurrentForecast and therefore can't be included
+ * in the BaseForecast class.
+ */
+
 package edu.fsu.mobile.cs.WeatherApp;
 
 import org.json.JSONException;
@@ -10,11 +16,14 @@ public class CurrentForecast extends BaseForecast {
     private int visibility;
     private int sunrise, sunset;    // stored as UNIX timestamps
 
+    // Constructor takes two doubles as parameter serving as the Latitude
+    // and Longitude for the forecast.
     public CurrentForecast(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
+    // Method below extracts the JSON data that has retrieved from the API.
     public void parseJSONData(JSONObject response) {
 
         // necessary try/catch when working with JSON data
@@ -43,15 +52,13 @@ public class CurrentForecast extends BaseForecast {
             humidity = main.getDouble("humidity");
             pressure = main.getDouble("pressure");
 
-
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
 
+    // GET METHODS
     public String getCity() {
         return city;
     }

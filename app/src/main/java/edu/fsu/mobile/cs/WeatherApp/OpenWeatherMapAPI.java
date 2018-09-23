@@ -1,3 +1,10 @@
+/**
+ * This class is responsible for communicating with the OpenWeatherMap API. An important distinction
+ * here that all of it's methods are, static meaning that you DO NOT need to instantiate this class
+ * to call its methods.
+ *
+ */
+
 package edu.fsu.mobile.cs.WeatherApp;
 
 import android.content.Context;
@@ -19,7 +26,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 
-public class OpenWeatherMapAPI {
+public final class OpenWeatherMapAPI {
 
     private static RequestQueue requestQueue = null;
 
@@ -53,5 +60,12 @@ public class OpenWeatherMapAPI {
 
         // add request to VolleyQueue
         requestQueue.add(req);
+    }
+
+    private OpenWeatherMapAPI() {
+        /**
+         * Purposely making this single constructor private to prevent this class from being
+         * instantiated because as mentioned earlier the methods are all static.
+         */
     }
 }
