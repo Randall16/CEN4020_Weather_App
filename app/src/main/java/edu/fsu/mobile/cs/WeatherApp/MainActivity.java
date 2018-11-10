@@ -10,7 +10,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
+
+import edu.fsu.mobile.cs.WeatherApp.WeatherData.CurrentForecast;
+import edu.fsu.mobile.cs.WeatherApp.WeatherData.OnFetchCompleteListener;
+import edu.fsu.mobile.cs.WeatherApp.WeatherData.OpenWeatherMapAPI;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +37,18 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        final CurrentForecast currentForecast = new CurrentForecast(30.4383, -84.2807);
+        OpenWeatherMapAPI.retrieveCurrentForecast(getApplicationContext(), currentForecast,
+                new OnFetchCompleteListener() {
+
+            @Override
+            public void onFetchComplete() {
+                Log.v("tester", currentForecast.getCountry() + "\t" + currentForecast.getCity());
+                Log.v("tester", currentForecast.getDescription() + '\n');
+                Log.v("tester", currentForecast.getPressure()+ "" + '\n');
+            }
+        });
     }
 
     /* Added Fragments Here */

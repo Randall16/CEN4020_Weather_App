@@ -5,34 +5,30 @@
  *
  */
 
-package edu.fsu.mobile.cs.WeatherApp;
+package edu.fsu.mobile.cs.WeatherApp.WeatherData;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.URL;
 
 public final class OpenWeatherMapAPI {
 
     private static RequestQueue requestQueue = null;
 
     private static final String APIKEY = "8a052996f128e0194ddd3059f32abd7f";
-    private static String URL = "http://api.openweathermap.org/data/2.5/weather?lat=30.4383" +
+    private static String CURRENT_URL = "https://api.openweathermap.org/data/2.5/weather?lat=30.4383" +
             "&lon=-84.2807&appid=" + APIKEY;
+    private static String FURTURE_URL = "https://api.openweathermap.org/data/2.5/forecast?" +
+            "lat=35&lon=" + APIKEY;
 
     public static void retrieveCurrentForecast(Context context, final CurrentForecast currentForecast,
                                                final OnFetchCompleteListener mListener) {
@@ -41,7 +37,7 @@ public final class OpenWeatherMapAPI {
         if(requestQueue == null)
             requestQueue = Volley.newRequestQueue(context);
 
-        JsonRequest req = new JsonObjectRequest(Request.Method.GET, URL, null,
+        JsonRequest req = new JsonObjectRequest(Request.Method.GET, CURRENT_URL, null,
                 new Response.Listener<JSONObject>() {
 
             @Override

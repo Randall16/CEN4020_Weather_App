@@ -5,7 +5,9 @@
  * ForecastInterval classes.
  */
 
-package edu.fsu.mobile.cs.WeatherApp;
+package edu.fsu.mobile.cs.WeatherApp.WeatherData;
+
+import org.json.JSONObject;
 
 public abstract class BaseForecast {
 
@@ -14,6 +16,8 @@ public abstract class BaseForecast {
     protected double humidity;
     protected double windSpeed, windDirection;
     protected double pressure;
+
+    public abstract void parseJSONData(JSONObject response);
 
     // GET METHODS
     public String getDescription() {
