@@ -23,12 +23,7 @@ import org.json.JSONObject;
 public final class OpenWeatherMapAPI {
 
     private static RequestQueue requestQueue = null;
-
     private static final String APIKEY = "8a052996f128e0194ddd3059f32abd7f";
-    private static String CURRENT_URL = "https://api.openweathermap.org/data/2.5/weather?lat=30.4383" +
-            "&lon=-84.2807&appid=" + APIKEY;
-    private static String FURTURE_URL = "https://api.openweathermap.org/data/2.5/forecast?" +
-            "lat=35&lon=" + APIKEY;
 
     public static void retrieveCurrentForecast(Context context, final CurrentForecast currentForecast,
                                                final OnFetchCompleteListener mListener) {
@@ -37,8 +32,8 @@ public final class OpenWeatherMapAPI {
         if(requestQueue == null)
             requestQueue = Volley.newRequestQueue(context);
 
-        JsonRequest req = new JsonObjectRequest(Request.Method.GET, CURRENT_URL, null,
-                new Response.Listener<JSONObject>() {
+        JsonRequest req = new JsonObjectRequest(Request.Method.GET, generateCurrentURL(currentForecast),
+                null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -56,6 +51,42 @@ public final class OpenWeatherMapAPI {
 
         // add request to VolleyQueue
         requestQueue.add(req);
+    }
+
+    public static void retrieveFutureForecast(Context context, final FutureForecast futureForecast,
+                                              final OnFetchCompleteListener mListener) {
+
+        if(requestQueue == null)
+            requestQueue = Volley.newRequestQueue(context);
+
+        JsonRequest req = new JsonObjectRequest(Request.Method.GET, generateFutureURL(futureForecast),
+                null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        futureForecast.parseJSONData(response);
+                        mListener.onFetchComplete();
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("tester", error.getMessage());
+            }
+        });
+
+        // add request to VolleyQueue
+        requestQueue.add(req);
+    }
+
+    private static String generateCurrentURL(CurrentForecast currentForecast) {
+        return "https://api.openweathermap.org/data/2.5/weather?lat=" + currentForecast.getLatitude() +
+                "&lon=" + currentForecast.getLatitude() + "&appid=" + APIKEY;
+    }
+
+    private static String generateFutureURL(FutureForecast futureForecast) {
+        return "https://api.openweathermap.org/data/2.5/forecast?lat=" + futureForecast.getLatitude() +
+                "&lon=" + futureForecast.getLongitude() + "&appid=" + APIKEY;
     }
 
     private OpenWeatherMapAPI() {

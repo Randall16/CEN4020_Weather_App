@@ -20,6 +20,7 @@ public class ForecastInterval extends BaseForecast {
 
             time = response.getInt("dt");
             // Almost all the data is nested inside of "main" JSON object
+            JSONObject desc = response;
             response = response.getJSONObject("main");
 
             temp = response.getDouble("temp");
@@ -27,7 +28,8 @@ public class ForecastInterval extends BaseForecast {
             temp_max = response.getDouble("temp_max");
             pressure = response.getDouble("pressure");
 
-            // left off here!
+            description = desc.getJSONArray("weather").getJSONObject(0)
+                    .getString("description");
 
         } catch (JSONException e) {
 
