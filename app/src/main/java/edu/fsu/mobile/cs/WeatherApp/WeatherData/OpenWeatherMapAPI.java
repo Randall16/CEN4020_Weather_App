@@ -81,7 +81,7 @@ public final class OpenWeatherMapAPI {
 
     private static String generateCurrentURL(CurrentForecast currentForecast) {
         return "https://api.openweathermap.org/data/2.5/weather?lat=" + currentForecast.getLatitude() +
-                "&lon=" + currentForecast.getLatitude() + "&appid=" + APIKEY;
+                "&lon=" + currentForecast.getLongitude() + "&appid=" + APIKEY;
     }
 
     private static String generateFutureURL(FutureForecast futureForecast) {
