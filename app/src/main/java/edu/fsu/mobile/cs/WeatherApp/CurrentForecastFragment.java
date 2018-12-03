@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import edu.fsu.mobile.cs.WeatherApp.WeatherData.CurrentForecast;
 import edu.fsu.mobile.cs.WeatherApp.WeatherData.WeatherViewModel;
 
@@ -44,7 +47,18 @@ public class CurrentForecastFragment extends Fragment {
         mModel.getCurrentForecastMutableLiveData().observe(getActivity(), new Observer<CurrentForecast>() {
             @Override
             public void onChanged(@Nullable CurrentForecast currentForecast) {
-                temperatureTextView.setText(String.valueOf(currentForecast.getTemp()));
+                Log.v("hehehe", "we in here");
+                temperatureTextView.setText(StringUtil.toString(currentForecast.getTemp()) + "\u00b0"
+                        + currentForecast.getMetric());
+                highTempTextView.setText(StringUtil.toString(currentForecast.getTemp_max()));
+                lowTempTextView.setText(StringUtil.toString(currentForecast.getTemp_min()));
+                String str = currentForecast.getDescription();
+                descriptionTextView.setText(str.substring(0, 1).toUpperCase() + str.substring(1));
+                cityTextView.setText(currentForecast.getCity());
+                SimpleDateFormat f = new SimpleDateFormat("M-dd-k");
+                dateTextView.setText(f.format(Calendar.getInstance().getTime()));
+
+                iconImageView.setImageResource(ImageUtil.getImage(currentForecast.getDescription()));
             }
         });
 

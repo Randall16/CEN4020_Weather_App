@@ -9,13 +9,13 @@
     <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_width="129dp"
+        android:layout_width="130dp"
         android:layout_height="91dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/clouds" />
+        tools:srcCompat="@drawable/clouds" />
 
     <TextView
         android:id="@+id/tv_temp"
@@ -23,10 +23,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
-        android:text="91"
         android:textSize="60dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="91" />
 
     <TextView
         android:id="@+id/tv_date"
@@ -37,26 +37,24 @@
         android:text="September 17, 5:00 PM"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="September 17, 5:00 PM" />
 
     <TextView
         android:id="@+id/tv_currentDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Mostly Cloudy"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.862"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_icon"
-        app:layout_constraintVertical_bias="0.013"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:text="Mostly Cloudy" />
 
     <TextView
         android:id="@+id/high"
@@ -88,10 +86,10 @@
         android:layout_height="19dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Tallahassee"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Tallahassee" />
 
     <TextView
         android:id="@+id/tv_degreeType"
@@ -100,12 +98,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
-        android:text="\u2109"
         android:textSize="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toEndOf="@+id/tv_temp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="\u2109" />
 
     <TextView
         android:id="@+id/tv_highTemp"
@@ -114,11 +112,11 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
-        android:text="92"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/high"
-        app:layout_constraintTop_toBottomOf="@+id/tv_degreeType" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_degreeType"
+        tools:text="92" />
 
     <TextView
         android:id="@+id/tv_lowTemp"
@@ -126,9 +124,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:text="85"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toEndOf="@+id/low"
-        app:layout_constraintTop_toBottomOf="@+id/tv_highTemp" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_highTemp"
+        tools:text="85" />
 </android.support.constraint.ConstraintLayout>

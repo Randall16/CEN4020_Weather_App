@@ -80,6 +80,9 @@ public final class OpenWeatherMapAPI {
     }
 
     private static String generateCurrentURL(CurrentForecast currentForecast) {
+
+        Log.v("hehehe", "https://api.openweathermap.org/data/2.5/weather?lat=" + currentForecast.getLatitude() +
+                "&lon=" + currentForecast.getLongitude() + "&appid=" + APIKEY);
         return "https://api.openweathermap.org/data/2.5/weather?lat=" + currentForecast.getLatitude() +
                 "&lon=" + currentForecast.getLongitude() + "&appid=" + APIKEY;
     }

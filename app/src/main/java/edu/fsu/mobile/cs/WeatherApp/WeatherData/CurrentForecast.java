@@ -19,6 +19,7 @@ public class CurrentForecast extends BaseForecast {
     private boolean locationUsed;
     private int visibility;
     private int sunrise, sunset;    // stored as UNIX timestamps
+    private char metric;
 
     // Constructor takes two doubles as parameter serving as the Latitude
     // and Longitude for the forecast.
@@ -26,11 +27,13 @@ public class CurrentForecast extends BaseForecast {
         this.latitude = latitude;
         this.longitude = longitude;
         locationUsed = true;
+        metric = 'K';
     }
 
     public CurrentForecast(int zip) {
         this.zipCode = zip;
         locationUsed = false;
+        metric = 'K';
     }
 
     // Method below extracts the JSON data that has retrieved from the API.
@@ -69,6 +72,16 @@ public class CurrentForecast extends BaseForecast {
 
     }
 
+    public void convertToFahrenheit() {
+        if(metric == 'K') {
+            // Using formula to convert from Kelvin to celsius
+            temp = (temp - 273.15) * 9/5 + 32;
+            temp_min = (temp_min - 273.15) * 9/5 + 32;
+            temp_max = (temp_max - 273.15) * 9/5 + 32;
+            metric = 'F';
+        }
+    }
+
     // GET METHODS
     public String getCity() {
         return city;
@@ -104,5 +117,9 @@ public class CurrentForecast extends BaseForecast {
 
     public boolean isLocationUsed() {
         return locationUsed;
+    }
+
+    public char getMetric() {
+        return metric;
     }
 }
