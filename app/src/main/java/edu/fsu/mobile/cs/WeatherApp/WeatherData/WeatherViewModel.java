@@ -33,6 +33,7 @@ public class WeatherViewModel extends AndroidViewModel {
 
             @Override
             public void onFetchComplete() {
+                futureForecast.convertToFahrenheit();
                 futureForecastMutableLiveData.setValue(futureForecast);
             }
         });
@@ -44,6 +45,7 @@ public class WeatherViewModel extends AndroidViewModel {
            public void onFetchComplete() {
                currentForecast.convertToFahrenheit();
                currentForecastMutableLiveData.setValue(currentForecast);
+
            }
        });
 

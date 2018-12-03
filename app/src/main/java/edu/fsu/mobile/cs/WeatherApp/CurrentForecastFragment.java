@@ -47,7 +47,6 @@ public class CurrentForecastFragment extends Fragment {
         mModel.getCurrentForecastMutableLiveData().observe(getActivity(), new Observer<CurrentForecast>() {
             @Override
             public void onChanged(@Nullable CurrentForecast currentForecast) {
-                Log.v("hehehe", "we in here");
                 temperatureTextView.setText(StringUtil.toString(currentForecast.getTemp()) + "\u00b0"
                         + currentForecast.getMetric());
                 highTempTextView.setText(StringUtil.toString(currentForecast.getTemp_max()));

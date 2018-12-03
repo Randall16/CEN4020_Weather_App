@@ -4,11 +4,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 
 public class FutureForecast {
 
-    private static final int DAYS_SUPPORTED = 5;
-    private static final int  TOTAL_INTERVALS = DAYS_SUPPORTED * 8;
+    public static final int DAYS_SUPPORTED = 5;
+    public static final int  TOTAL_INTERVALS = DAYS_SUPPORTED * 8;
     private ForecastInterval [] forecastIntervals;
     private String [] dailyDescriptions;
     private double [] dailyHighs;
@@ -16,6 +20,7 @@ public class FutureForecast {
     private double latitude, longitude;
     private int zipCode;
     private boolean locationUsed;
+    private char metric;
 
     public FutureForecast(double latitude, double longitude) {
         this.latitude = latitude;
@@ -50,6 +55,15 @@ public class FutureForecast {
         storeData();
     }
 
+    public void convertToFahrenheit() {
+        if(metric == 'K') {
+            for(int i = 0; i < DAYS_SUPPORTED; i++) {
+                dailyHighs[i] = (dailyHighs[i] - 273.15) * 9/5 + 32;
+                dailyLows[i] = (dailyLows[i] - 273.15) * 9/5 + 32;
+            }
+        }
+    }
+
     private void init() {
         forecastIntervals = new ForecastInterval[TOTAL_INTERVALS];
         for(int i = 0; i < TOTAL_INTERVALS; i++)
@@ -57,6 +71,8 @@ public class FutureForecast {
 
         dailyHighs = new double[DAYS_SUPPORTED];
         dailyLows = new double[DAYS_SUPPORTED];
+        dailyDescriptions = new String[DAYS_SUPPORTED];
+        metric = 'K';
     }
 
     private void storeData() {
@@ -66,16 +82,44 @@ public class FutureForecast {
             double curMin = forecastIntervals[i*8].temp_min;
             double curHi = forecastIntervals[i*8].temp_max;
 
-            for(int j = 1; j < 8; j++) {
-                if(curMin > forecastIntervals[(i*8) +j].temp_min)
-                    curMin = forecastIntervals[(i*8) +j].temp_min;
+            HashMap<String, Integer> counter = new HashMap<>();
 
-                if(curHi < forecastIntervals[(i*8) +j].temp_max )
-                    curHi = forecastIntervals[(i*8) +j].temp_max;
+            for(int j = 1; j < 8; j++) {
+                final int INDEX = (i*8) +j;
+                if(curMin > forecastIntervals[INDEX].temp_min)
+                    curMin = forecastIntervals[INDEX].temp_min;
+
+                if(curHi < forecastIntervals[INDEX].temp_max )
+                    curHi = forecastIntervals[INDEX].temp_max;
+
+                if(counter.containsKey(forecastIntervals[INDEX].getDescription())) {
+                    Integer t = counter.get(forecastIntervals[INDEX].getDescription());
+                    t++;
+                    counter.put(forecastIntervals[INDEX].getDescription(), t);
+                }
+                else {
+                    counter.put(forecastIntervals[INDEX].getDescription(), 0);
+                }
             }
 
             dailyHighs[i] = curHi;
             dailyLows[i] = curMin;
+
+            // stuff below is for getting the description
+            Iterator it = counter.entrySet().iterator();
+            int maxValue = 0;
+            Map.Entry highest = null;
+            while(it.hasNext()) {
+                Map.Entry pair = (Map.Entry) it.next();
+                if( (int) pair.getValue() > maxValue) {
+                    maxValue = (int) pair.getValue();
+                    highest = pair;
+                }
+            }
+
+            dailyDescriptions[i] = (String) highest.getKey();
+
+
         }
     }
 
@@ -85,11 +129,10 @@ public class FutureForecast {
 
     public double getDayLow(int day) {
         return dailyLows[day];
-
     }
 
     public String getDescription(int days) {
-        return forecastIntervals[0].getDescription();
+        return dailyDescriptions[days];
     }
 
     public double getLatitude() {
@@ -106,5 +149,9 @@ public class FutureForecast {
 
     public boolean isLocationUsed() {
         return locationUsed;
+    }
+
+    public char getMetric() {
+        return metric;
     }
 }

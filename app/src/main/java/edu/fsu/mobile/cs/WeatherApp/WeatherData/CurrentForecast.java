@@ -6,6 +6,8 @@
 
 package edu.fsu.mobile.cs.WeatherApp.WeatherData;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +42,8 @@ public class CurrentForecast extends BaseForecast {
     @Override
     public void parseJSONData(JSONObject response) {
 
+
+
         // necessary try/catch when working with JSON data
         try {
 
@@ -66,9 +70,13 @@ public class CurrentForecast extends BaseForecast {
             humidity = main.getDouble("humidity");
             pressure = main.getDouble("pressure");
 
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        //Log.v("inCF", temp + "");
+        //Log.v("inCF", sunrise + "");
 
     }
 
