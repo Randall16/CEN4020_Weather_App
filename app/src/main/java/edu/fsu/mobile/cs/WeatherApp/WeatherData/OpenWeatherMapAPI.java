@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public final class OpenWeatherMapAPI {
@@ -37,7 +38,11 @@ public final class OpenWeatherMapAPI {
 
             @Override
             public void onResponse(JSONObject response) {
-
+                try {
+                    Log.v("inAPIClass", response.getJSONObject("main").getDouble("temp") + "");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 currentForecast.parseJSONData(response);
                 mListener.onFetchComplete();
             }

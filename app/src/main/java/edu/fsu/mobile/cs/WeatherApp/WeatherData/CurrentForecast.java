@@ -47,6 +47,12 @@ public class CurrentForecast extends BaseForecast {
         // necessary try/catch when working with JSON data
         try {
 
+            temp = response.getJSONObject("main").getDouble("temp");
+            temp_max = response.getJSONObject("main").getDouble("temp_min");
+            temp_min = response.getJSONObject("main").getDouble("temp_max");
+            humidity = response.getJSONObject("main").getDouble("humidity");
+            pressure = response.getJSONObject("main").getDouble("pressure");
+
             description = response.getJSONArray("weather").getJSONObject(0)
                     .getString("description");
 
@@ -65,12 +71,9 @@ public class CurrentForecast extends BaseForecast {
             // rest of data is nested inside JSONObject "main"
             JSONObject main = response.getJSONObject("main");
             //temp = main.getDouble("temp");
-            temp_max = main.getDouble("temp_min");
-            temp_min = main.getDouble("temp_max");
-            humidity = main.getDouble("humidity");
-            pressure = main.getDouble("pressure");
 
-            temp = response.getJSONObject("main").getDouble("temp");
+
+
 
 
         } catch (JSONException e) {
