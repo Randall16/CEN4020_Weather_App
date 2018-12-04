@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import edu.fsu.mobile.cs.WeatherApp.StringUtil;
+
 
 public class FutureForecast {
 
@@ -78,6 +80,8 @@ public class FutureForecast {
     private void storeData() {
 
         for(int i = 0; i < DAYS_SUPPORTED; i++) {
+            boolean useMap = true;
+            String hold = null;
 
             double curMin = forecastIntervals[i*8].temp_min;
             double curHi = forecastIntervals[i*8].temp_max;
@@ -91,6 +95,12 @@ public class FutureForecast {
 
                 if(curHi < forecastIntervals[INDEX].temp_max )
                     curHi = forecastIntervals[INDEX].temp_max;
+
+                hold = forecastIntervals[INDEX].getDescription();
+                if(hold.contains("rain") || hold.contains("thunderstorm") || hold.contains("snow")) {
+                    useMap = false;
+                    break;
+                }
 
                 if(counter.containsKey(forecastIntervals[INDEX].getDescription())) {
                     Integer t = counter.get(forecastIntervals[INDEX].getDescription());
@@ -117,7 +127,10 @@ public class FutureForecast {
                 }
             }
 
-            dailyDescriptions[i] = (String) highest.getKey();
+            if(useMap)
+                hold = (String) highest.getKey();
+
+            dailyDescriptions[i] = hold;
 
 
         }

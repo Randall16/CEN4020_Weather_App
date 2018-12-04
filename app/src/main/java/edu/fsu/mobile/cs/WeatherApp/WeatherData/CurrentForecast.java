@@ -64,11 +64,13 @@ public class CurrentForecast extends BaseForecast {
 
             // rest of data is nested inside JSONObject "main"
             JSONObject main = response.getJSONObject("main");
-            temp = main.getDouble("temp");
+            //temp = main.getDouble("temp");
             temp_max = main.getDouble("temp_min");
             temp_min = main.getDouble("temp_max");
             humidity = main.getDouble("humidity");
             pressure = main.getDouble("pressure");
+
+            temp = response.getJSONObject("main").getDouble("temp");
 
 
         } catch (JSONException e) {
