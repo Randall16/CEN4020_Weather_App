@@ -48,8 +48,8 @@ public class CurrentForecast extends BaseForecast {
         try {
 
             temp = response.getJSONObject("main").getDouble("temp");
-            temp_max = response.getJSONObject("main").getDouble("temp_min");
-            temp_min = response.getJSONObject("main").getDouble("temp_max");
+            temp_max = response.getJSONObject("main").getDouble("temp_max");
+            temp_min = response.getJSONObject("main").getDouble("temp_min");
             humidity = response.getJSONObject("main").getDouble("humidity");
             pressure = response.getJSONObject("main").getDouble("pressure");
 
