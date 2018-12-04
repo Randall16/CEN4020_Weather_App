@@ -54,7 +54,29 @@ public class WeatherViewModel extends AndroidViewModel {
     }
 
     public void updateWeatherWithZip(int zipCode) {
+        currentForecast = new CurrentForecast(zipCode);
+        futureForecast = new FutureForecast(zipCode);
 
+        OpenWeatherMapAPI.retrieveFutureForecast(application, futureForecast,
+                new OnFetchCompleteListener() {
+
+                    @Override
+                    public void onFetchComplete() {
+                        futureForecast.convertToFahrenheit();
+                        futureForecastMutableLiveData.setValue(futureForecast);
+                    }
+                });
+
+        OpenWeatherMapAPI.retrieveCurrentForecast(application, currentForecast,
+                new OnFetchCompleteListener() {
+
+                    @Override
+                    public void onFetchComplete() {
+                        currentForecast.convertToFahrenheit();
+                        currentForecastMutableLiveData.setValue(currentForecast);
+
+                    }
+                });
     }
 
     public MutableLiveData<CurrentForecast> getCurrentForecastMutableLiveData() {

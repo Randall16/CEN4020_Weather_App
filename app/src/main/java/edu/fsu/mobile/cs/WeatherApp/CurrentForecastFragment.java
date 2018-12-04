@@ -54,7 +54,7 @@ public class CurrentForecastFragment extends Fragment {
                 String str = currentForecast.getDescription();
                 descriptionTextView.setText(str.substring(0, 1).toUpperCase() + str.substring(1));
                 cityTextView.setText(currentForecast.getCity());
-                SimpleDateFormat f = new SimpleDateFormat("E, 'at' h:m a z");
+                SimpleDateFormat f = new SimpleDateFormat("E, h:m a z");
                 dateTextView.setText(f.format(Calendar.getInstance().getTime()));
 
                 iconImageView.setImageResource(ImageUtil.getImage(currentForecast.getDescription()));

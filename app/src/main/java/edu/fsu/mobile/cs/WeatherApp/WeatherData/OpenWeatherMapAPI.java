@@ -38,11 +38,7 @@ public final class OpenWeatherMapAPI {
 
             @Override
             public void onResponse(JSONObject response) {
-                try {
-                    Log.v("inAPIClass", response.getJSONObject("main").getDouble("temp") + "");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
                 currentForecast.parseJSONData(response);
                 mListener.onFetchComplete();
             }
@@ -50,7 +46,7 @@ public final class OpenWeatherMapAPI {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.v("tester", error.getMessage());
+                //Log.v("tester", error.getMessage());
             }
         });
 
@@ -62,7 +58,9 @@ public final class OpenWeatherMapAPI {
                                               final OnFetchCompleteListener mListener) {
 
         if(requestQueue == null)
-            requestQueue = Volley.newRequestQueue(context);
+           requestQueue = Volley.newRequestQueue(context);
+
+        //RequestQueue q = Volley.newRequestQueue(context);
 
         JsonRequest req = new JsonObjectRequest(Request.Method.GET, generateFutureURL(futureForecast),
                 null, new Response.Listener<JSONObject>() {
@@ -76,7 +74,7 @@ public final class OpenWeatherMapAPI {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.v("tester", error.getMessage());
+                Log.v("tester", error.networkResponse.toString());
             }
         });
 
@@ -86,15 +84,27 @@ public final class OpenWeatherMapAPI {
 
     private static String generateCurrentURL(CurrentForecast currentForecast) {
 
-        Log.v("hehehe", "https://api.openweathermap.org/data/2.5/weather?lat=" + currentForecast.getLatitude() +
-                "&lon=" + currentForecast.getLongitude() + "&appid=" + APIKEY);
-        return "https://api.openweathermap.org/data/2.5/weather?lat=" + currentForecast.getLatitude() +
+        //Log.v("inAPIC", "https://api.openweathermap.org/data/2.5/weather?lat=" + currentForecast.getLatitude() +
+        //        "&lon=" + currentForecast.getLongitude() + "&appid=" + APIKEY);
+
+        if(currentForecast.isLocationUsed())
+            return "https://api.openweathermap.org/data/2.5/weather?lat=" + currentForecast.getLatitude() +
                 "&lon=" + currentForecast.getLongitude() + "&appid=" + APIKEY;
+        else
+            return "http://api.openweathermap.org/data/2.5/weather?zip=" +
+                    currentForecast.getZipCode() +"&appid=" + APIKEY;
     }
 
     private static String generateFutureURL(FutureForecast futureForecast) {
-        return "https://api.openweathermap.org/data/2.5/forecast?lat=" + futureForecast.getLatitude() +
-                "&lon=" + futureForecast.getLongitude() + "&appid=" + APIKEY;
+        //Log.v("inAPIC", "https://api.openweathermap.org/data/2.5/forecast?lat=" + futureForecast.getLatitude() +
+        //       "&lon=" + futureForecast.getLongitude() + "&appid=" + APIKEY);
+
+        if(futureForecast.isLocationUsed())
+            return "https://api.openweathermap.org/data/2.5/forecast?lat=" + futureForecast.getLatitude() +
+                    "&lon=" + futureForecast.getLongitude() + "&appid=" + APIKEY;
+        else
+            return "http://api.openweathermap.org/data/2.5/forecast?zip=" +
+                    futureForecast.getZipCode() +",US&appid=" + APIKEY;
     }
 
     private OpenWeatherMapAPI() {

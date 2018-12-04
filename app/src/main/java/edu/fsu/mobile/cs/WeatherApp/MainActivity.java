@@ -6,6 +6,8 @@
 package edu.fsu.mobile.cs.WeatherApp;
 
 import android.Manifest;
+import android.app.Activity;
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -20,6 +22,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -36,14 +44,16 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Location bestLocation;
+    private EditText zipCodeEditText;
+    private WeatherViewModel mModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
 
         viewPager = findViewById(R.id.viewpager);
@@ -51,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        zipCodeEditText = findViewById(R.id.et_zipcode);
 
 
         // Handle location stuff
@@ -90,10 +102,30 @@ public class MainActivity extends AppCompatActivity {
 
         //bestLocation = .getLastKnownLocation(Context.LOCATION_SERVICE);
 
-        ViewModelProviders.of(this).get(WeatherViewModel.class).
-                updateWeatherWithLocation(bestLocation);
+        mModel = ViewModelProviders.of(this).get(WeatherViewModel.class);
+        mModel.updateWeatherWithLocation(bestLocation);
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+
+        zipCodeEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId==EditorInfo.IME_ACTION_DONE){
+
+                    int input = Integer.valueOf(zipCodeEditText.getText().toString());
+                    mModel.updateWeatherWithZip(input);
+
+                }
+                return false;
+            }
+
+        });
+
 
     }
+
+
 
     /* Added Fragments Here */
     private void setupViewPager(ViewPager viewPager) {
