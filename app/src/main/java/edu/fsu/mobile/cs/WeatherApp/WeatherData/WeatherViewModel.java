@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 public class WeatherViewModel extends AndroidViewModel {
 
@@ -85,5 +86,13 @@ public class WeatherViewModel extends AndroidViewModel {
 
     public MutableLiveData<FutureForecast> getFutureForecastMutableLiveData() {
         return futureForecastMutableLiveData;
+    }
+
+    private void toastError() {
+        Toast.makeText(application, "API Error", Toast.LENGTH_SHORT).show();
+    }
+
+    private void zipError() {
+        Toast.makeText(application, "Invalid Zip Code", Toast.LENGTH_SHORT).show();
     }
 }

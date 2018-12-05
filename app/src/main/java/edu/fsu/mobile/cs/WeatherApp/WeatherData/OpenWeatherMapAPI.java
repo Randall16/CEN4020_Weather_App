@@ -9,6 +9,7 @@ package edu.fsu.mobile.cs.WeatherApp.WeatherData;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,7 +27,7 @@ public final class OpenWeatherMapAPI {
     private static RequestQueue requestQueue = null;
     private static final String APIKEY = "8a052996f128e0194ddd3059f32abd7f";
 
-    public static void retrieveCurrentForecast(Context context, final CurrentForecast currentForecast,
+    public static void retrieveCurrentForecast(final Context context, final CurrentForecast currentForecast,
                                                final OnFetchCompleteListener mListener) {
 
         // if VolleyQueue is null create one with incoming context
@@ -47,6 +48,8 @@ public final class OpenWeatherMapAPI {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //Log.v("tester", error.getMessage());
+                Toast.makeText(context, "Invalid Zip Code", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -54,7 +57,7 @@ public final class OpenWeatherMapAPI {
         requestQueue.add(req);
     }
 
-    public static void retrieveFutureForecast(Context context, final FutureForecast futureForecast,
+    public static void retrieveFutureForecast(final Context context, final FutureForecast futureForecast,
                                               final OnFetchCompleteListener mListener) {
 
         if(requestQueue == null)
@@ -74,7 +77,8 @@ public final class OpenWeatherMapAPI {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.v("tester", error.networkResponse.toString());
+                //Log.v("tester", error.networkResponse.toString());
+
             }
         });
 
@@ -97,7 +101,10 @@ public final class OpenWeatherMapAPI {
 
     private static String generateFutureURL(FutureForecast futureForecast) {
         //Log.v("inAPIC", "https://api.openweathermap.org/data/2.5/forecast?lat=" + futureForecast.getLatitude() +
-        //       "&lon=" + futureForecast.getLongitude() + "&appid=" + APIKEY);
+         //     "&lon=" + futureForecast.getLongitude() + "&appid=" + APIKEY);
+
+        Log.v("inAPIC", "http://api.openweathermap.org/data/2.5/forecast?zip=" +
+                futureForecast.getZipCode() +",US&appid=" + APIKEY);
 
         if(futureForecast.isLocationUsed())
             return "https://api.openweathermap.org/data/2.5/forecast?lat=" + futureForecast.getLatitude() +

@@ -27,7 +27,7 @@ public class CurrentForecastFragment extends Fragment {
     private WeatherViewModel mModel;
 
     private TextView cityTextView, dateTextView, temperatureTextView, highTempTextView,
-            lowTempTextView, descriptionTextView;
+            lowTempTextView, descriptionTextView, humidityTextView;
     private ImageView iconImageView;
 
     public CurrentForecastFragment() {
@@ -54,10 +54,12 @@ public class CurrentForecastFragment extends Fragment {
                 String str = currentForecast.getDescription();
                 descriptionTextView.setText(str.substring(0, 1).toUpperCase() + str.substring(1));
                 cityTextView.setText(currentForecast.getCity());
-                SimpleDateFormat f = new SimpleDateFormat("E, h:m a z");
+                SimpleDateFormat f = new SimpleDateFormat("E, h:mm a z");
                 dateTextView.setText(f.format(Calendar.getInstance().getTime()));
 
                 iconImageView.setImageResource(ImageUtil.getImage(currentForecast.getDescription()));
+                humidityTextView.setText("Humidity level " +
+                        StringUtil.toString(currentForecast.getHumidity()) + "%");
             }
         });
 
@@ -73,6 +75,7 @@ public class CurrentForecastFragment extends Fragment {
         lowTempTextView = view.findViewById(R.id.tv_lowTemp);
         descriptionTextView = view.findViewById(R.id.tv_currentDescription);
         iconImageView = view.findViewById(R.id.iv_icon);
+        humidityTextView = view.findViewById(R.id.tv_h);
 
     }
 

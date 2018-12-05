@@ -9,10 +9,10 @@
     <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_width="130dp"
-        android:layout_height="91dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="48dp"
+        android:layout_width="179dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/clouds" />
@@ -22,69 +22,68 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="12dp"
         android:textSize="60dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_h"
         tools:text="91" />
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:text="September 17, 5:00 PM"
+        android:layout_marginTop="4dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_city"
+        app:layout_constraintTop_toBottomOf="@+id/tv_city"
         tools:text="September 17, 5:00 PM" />
 
     <TextView
         android:id="@+id/tv_currentDescription"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/iv_icon"
         app:layout_constraintStart_toStartOf="@+id/iv_icon"
-        app:layout_constraintTop_toBottomOf="@+id/iv_icon"
+        app:layout_constraintTop_toTopOf="@+id/high"
         tools:ignore="MissingConstraints"
         tools:text="Mostly Cloudy" />
 
     <TextView
         android:id="@+id/high"
-        android:layout_width="37dp"
-        android:layout_height="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="28dp"
         android:text="High: "
+        android:textSize="14dp"
         android:textStyle="bold"
-        android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_temp" />
 
     <TextView
         android:id="@+id/low"
-        android:layout_width="51dp"
-        android:layout_height="21dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:text="Low: "
-        android:textSize="12dp"
+        android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_lowTemp"
+        app:layout_constraintTop_toBottomOf="@+id/high"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tv_city"
         android:layout_width="wrap_content"
-        android:layout_height="19dp"
+        android:layout_height="29dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="19dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -95,13 +94,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
         android:textSize="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toEndOf="@+id/tv_temp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_temp"
         tools:text="\u2109" />
 
     <TextView
@@ -109,11 +105,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="24dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="@+id/high"
         app:layout_constraintStart_toEndOf="@+id/high"
         app:layout_constraintTop_toBottomOf="@+id/tv_degreeType"
         tools:text="92" />
@@ -122,9 +116,24 @@
         android:id="@+id/tv_lowTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/low"
         app:layout_constraintEnd_toEndOf="@+id/tv_highTemp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tv_highTemp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_highTemp"
+        app:layout_constraintTop_toTopOf="@+id/low"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="85" />
+
+    <TextView
+        android:id="@+id/tv_h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Humidity Level"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date"
+        tools:ignore="MissingConstraints" />
+
 </android.support.constraint.ConstraintLayout>

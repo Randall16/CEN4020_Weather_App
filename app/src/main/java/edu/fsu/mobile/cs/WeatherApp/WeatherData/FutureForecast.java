@@ -1,5 +1,7 @@
 package edu.fsu.mobile.cs.WeatherApp.WeatherData;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,7 +98,10 @@ public class FutureForecast {
                 if(curHi < forecastIntervals[INDEX].temp_max )
                     curHi = forecastIntervals[INDEX].temp_max;
 
+                Log.v("inFFF", i +" " +j);
                 hold = forecastIntervals[INDEX].getDescription();
+                if(hold == null)
+                    break;
                 if(hold.contains("rain") || hold.contains("thunderstorm") || hold.contains("snow")) {
                     useMap = false;
                     break;
